@@ -1,16 +1,16 @@
-package com.udacity.bakingapp;
+package com.udacity.bakingapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.udacity.bakingapp.R;
+
+public class RecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        
+        setContentView(R.layout.activity_recipe);
     }
 }
