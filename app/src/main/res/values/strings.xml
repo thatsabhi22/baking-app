@@ -5,7 +5,7 @@
     <string name="no_internet_text">No Internet Found.\nCheck your connection or try again.\n\n
         Meanwhile you can look at your favourite movies \noffline from the Menu top-right</string>
     <string name="retry">Retry</string>
-    <string name="json_pile_path">baking.json</string>
+    <string name="json_pile_path">json/baking.json</string>
     <string name="title_activity_recipe">RecipeActivity</string>
     <string name="space">\u0020</string>
     <string name="new_line">\n</string>
@@ -103,4 +103,6 @@
     <string name="ingredients_label">Ingredients</string>
     <string name="ingredients_list_text">{Ingredients_list}</string>
     <string name="bannerimagetext">BannerImage</string>
+    <string name="step_name_label">{step_name_label}</string>
+    <string name="goto_icon">{goto_icon}</string>
 </resources>
