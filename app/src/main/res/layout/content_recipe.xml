@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.RecipeActivity"
+    tools:showIn="@layout/activity_recipe">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ingredient_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/ingredients_label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FDD0C2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ingredient_list_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ingredient_label"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/ingredients_list_text"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

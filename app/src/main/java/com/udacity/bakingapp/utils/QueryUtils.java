@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.models.Dish;
 import com.udacity.bakingapp.models.Ingredient;
 import com.udacity.bakingapp.models.Step;
@@ -144,5 +145,33 @@ public final class QueryUtils {
             isOffline = isOnline();
             return isOffline;
         }
+    }
+
+    public static int getImageId(String dishName) {
+        int imageId = 0;
+        if (dishName != null && !TextUtils.isEmpty(dishName)) {
+
+            switch (dishName) {
+                case "Nutella Pie":
+                    imageId = R.drawable.nutella_pie;
+                    break;
+
+                case "Brownies":
+                    imageId = R.drawable.brownie;
+                    break;
+
+                case "Yellow Cake":
+                    imageId = R.drawable.yellow_cake;
+                    break;
+
+                case "Cheesecake":
+                    imageId = R.drawable.cheese_cake;
+                    break;
+
+                default:
+                    imageId = R.drawable.dish_image;
+            }
+        }
+        return imageId;
     }
 }

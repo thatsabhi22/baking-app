@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.models.Dish;
-import com.udacity.bakingapp.ui.DishesActivity;
+import com.udacity.bakingapp.ui.RecipeActivity;
+import com.udacity.bakingapp.utils.QueryUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,28 +46,7 @@ public class DishesAdapter extends
     public void onBindViewHolder(@NonNull DishListViewHolder holder, int position) {
         final Dish current = dishes.get(position);
 
-        int imageRes = 0;
-
-        switch (current.getName()) {
-            case "Nutella Pie":
-                imageRes = R.drawable.nutella_pie;
-                break;
-
-            case "Brownies":
-                imageRes = R.drawable.brownie;
-                break;
-
-            case "Yellow Cake":
-                imageRes = R.drawable.yellow_cake;
-                break;
-
-            case "Cheesecake":
-                imageRes = R.drawable.cheese_cake;
-                break;
-
-            default:
-                imageRes = R.drawable.dish_image;
-        }
+        int imageRes = QueryUtils.getImageId(current.getName());
 
         holder.singleDishIV.setImageResource(imageRes);
         holder.dishNameTV.setText(current.getName());
@@ -75,8 +55,8 @@ public class DishesAdapter extends
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(mContext, DishesActivity.class);
-//                        intent.putExtra("movie", current);
+                        Intent intent = new Intent(mContext, RecipeActivity.class);
+                        intent.putExtra("dish", current);
                         mContext.startActivity(intent);
                     }
                 });
