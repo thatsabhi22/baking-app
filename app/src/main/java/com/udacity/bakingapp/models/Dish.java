@@ -8,6 +8,17 @@ import java.util.List;
 
 public class Dish implements Parcelable {
 
+    public static final Parcelable.Creator<Dish> CREATOR = new Parcelable.Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel source) {
+            return new Dish(source);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
     private Integer id;
     private String name;
     private List<Ingredient> ingredients = null;
@@ -17,13 +28,11 @@ public class Dish implements Parcelable {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Dish() {
     }
 
     /**
-     *
      * @param image
      * @param servings
      * @param name
@@ -39,6 +48,17 @@ public class Dish implements Parcelable {
         this.steps = steps;
         this.servings = servings;
         this.image = image;
+    }
+
+    protected Dish(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.name = in.readString();
+        this.ingredients = new ArrayList<Ingredient>();
+        in.readList(this.ingredients, Ingredient.class.getClassLoader());
+        this.steps = new ArrayList<Step>();
+        in.readList(this.steps, Step.class.getClassLoader());
+        this.servings = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.image = in.readString();
     }
 
     public Integer getId() {
@@ -103,27 +123,4 @@ public class Dish implements Parcelable {
         dest.writeValue(this.servings);
         dest.writeString(this.image);
     }
-
-    protected Dish(Parcel in) {
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.name = in.readString();
-        this.ingredients = new ArrayList<Ingredient>();
-        in.readList(this.ingredients, Ingredient.class.getClassLoader());
-        this.steps = new ArrayList<Step>();
-        in.readList(this.steps, Step.class.getClassLoader());
-        this.servings = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.image = in.readString();
-    }
-
-    public static final Parcelable.Creator<Dish> CREATOR = new Parcelable.Creator<Dish>() {
-        @Override
-        public Dish createFromParcel(Parcel source) {
-            return new Dish(source);
-        }
-
-        @Override
-        public Dish[] newArray(int size) {
-            return new Dish[size];
-        }
-    };
 }

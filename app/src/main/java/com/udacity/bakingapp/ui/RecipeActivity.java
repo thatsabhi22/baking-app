@@ -2,16 +2,21 @@ package com.udacity.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.bakingapp.R;
+import com.udacity.bakingapp.adapters.StepsAdapter;
 import com.udacity.bakingapp.models.Dish;
 import com.udacity.bakingapp.models.Ingredient;
+import com.udacity.bakingapp.models.Step;
 import com.udacity.bakingapp.utils.QueryUtils;
 
 import java.util.List;
@@ -26,6 +31,11 @@ public class RecipeActivity extends AppCompatActivity {
 
     @BindView(R.id.backdrop_poster_iv)
     ImageView backdropPosterIV;
+
+    @BindView(R.id.steps_recycler_view)
+    RecyclerView stepsRecyclerView;
+
+    StepsAdapter stepsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,16 @@ public class RecipeActivity extends AppCompatActivity {
                 line.append(getString(R.string.double_new_line));
             }
             ingredientListTV.setText(line.toString());
+        }
+
+        List<Step> steps = dish.getSteps();
+        if (steps != null && steps.size() > 0) {
+            stepsAdapter = new StepsAdapter(this, steps);
+            stepsRecyclerView.setAdapter(stepsAdapter);
+            RecyclerView.LayoutManager mLayoutManager
+                    = new LinearLayoutManager(this);
+            stepsRecyclerView.setLayoutManager(mLayoutManager);
+            stepsRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 

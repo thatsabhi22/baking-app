@@ -38,7 +38,7 @@ public class DishesAdapter extends
     @NonNull
     @Override
     public DishListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = (View) inflater.inflate(R.layout.dishes_list_cards, parent, false);
+        View view = (View) inflater.inflate(R.layout.dishes_list_card, parent, false);
         return new DishListViewHolder(view);
     }
 

@@ -137,16 +137,6 @@ public final class QueryUtils {
         return text;
     }
 
-    public static class CheckOnlineStatus extends AsyncTask<Void, Integer, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            //This is a background thread, when it finishes executing will return the result from your function.
-            Boolean isOffline;
-            isOffline = isOnline();
-            return isOffline;
-        }
-    }
-
     public static int getImageId(String dishName) {
         int imageId = 0;
         if (dishName != null && !TextUtils.isEmpty(dishName)) {
@@ -173,5 +163,15 @@ public final class QueryUtils {
             }
         }
         return imageId;
+    }
+
+    public static class CheckOnlineStatus extends AsyncTask<Void, Integer, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            //This is a background thread, when it finishes executing will return the result from your function.
+            Boolean isOffline;
+            isOffline = isOnline();
+            return isOffline;
+        }
     }
 }

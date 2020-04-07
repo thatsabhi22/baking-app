@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class Step implements Parcelable {
 
+    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
+        @Override
+        public Step createFromParcel(Parcel source) {
+            return new Step(source);
+        }
+
+        @Override
+        public Step[] newArray(int size) {
+            return new Step[size];
+        }
+    };
     private Integer id;
     private String shortDescription;
     private String description;
@@ -13,13 +24,11 @@ public class Step implements Parcelable {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Step() {
     }
 
     /**
-     *
      * @param videoURL
      * @param description
      * @param id
@@ -33,6 +42,14 @@ public class Step implements Parcelable {
         this.description = description;
         this.videoURL = videoURL;
         this.thumbnailURL = thumbnailURL;
+    }
+
+    protected Step(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.shortDescription = in.readString();
+        this.description = in.readString();
+        this.videoURL = in.readString();
+        this.thumbnailURL = in.readString();
     }
 
     public Integer getId() {
@@ -88,24 +105,4 @@ public class Step implements Parcelable {
         dest.writeString(this.videoURL);
         dest.writeString(this.thumbnailURL);
     }
-
-    protected Step(Parcel in) {
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.shortDescription = in.readString();
-        this.description = in.readString();
-        this.videoURL = in.readString();
-        this.thumbnailURL = in.readString();
-    }
-
-    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
-        @Override
-        public Step createFromParcel(Parcel source) {
-            return new Step(source);
-        }
-
-        @Override
-        public Step[] newArray(int size) {
-            return new Step[size];
-        }
-    };
 }
