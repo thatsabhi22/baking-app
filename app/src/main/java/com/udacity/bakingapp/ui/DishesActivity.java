@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,11 +32,16 @@ public class DishesActivity extends AppCompatActivity {
     DishesAdapter dishesAdapter;
     List<Dish> dishesList;
 
+    RecyclerView.LayoutManager mLayoutManager;
+    private boolean isTablet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dishes);
         ButterKnife.bind(this);
+
+        isTablet = (findViewById(R.id.dishes_phone_land) != null) || (findViewById(R.id.dishes_tablet) != null);
 
         AssetManager assetManager = getAssets();
         String dishesJSON = QueryUtils.mReadJsonData(assetManager, getString(R.string.json_pile_path));
@@ -46,8 +52,12 @@ public class DishesActivity extends AppCompatActivity {
 
         dishesAdapter = new DishesAdapter(this, dishesList);
         dishListRecyclerView.setAdapter(dishesAdapter);
-        RecyclerView.LayoutManager mLayoutManager
-                = new LinearLayoutManager(this);
+
+        if (isTablet) {
+            mLayoutManager = new GridLayoutManager(this, 2);
+        } else {
+            mLayoutManager = new LinearLayoutManager(this);
+        }
         dishListRecyclerView.setLayoutManager(mLayoutManager);
         dishListRecyclerView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
