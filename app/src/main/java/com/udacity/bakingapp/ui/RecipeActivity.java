@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,12 +24,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 public class RecipeActivity extends AppCompatActivity {
 
     @BindView(R.id.ingredient_list_tv)
     TextView ingredientListTV;
 
+    @Nullable
     @BindView(R.id.backdrop_poster_iv)
     ImageView backdropPosterIV;
 
@@ -36,16 +39,20 @@ public class RecipeActivity extends AppCompatActivity {
     RecyclerView stepsRecyclerView;
 
     StepsAdapter stepsAdapter;
+    private boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        Toast.makeText(this, "Steps below", Toast.LENGTH_SHORT).show();
+        if(findViewById(R.id.recipe_tablet_layout)!=null){
+            isTablet = true;
+        }
+        else{
+            isTablet = false;
+        }
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -59,8 +66,18 @@ public class RecipeActivity extends AppCompatActivity {
 
         String dishName = dish.getName();
         setTitle(dishName);
-        int ImageId = QueryUtils.getImageId(dishName);
-        backdropPosterIV.setImageResource(ImageId);
+
+        if (isTablet) {
+
+        }
+        else{
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            Toast.makeText(this, "Steps below", Toast.LENGTH_SHORT).show();
+
+            int ImageId = QueryUtils.getImageId(dishName);
+            backdropPosterIV.setImageResource(ImageId);
+        }
 
         List<Ingredient> ingredients = dish.getIngredients();
 
