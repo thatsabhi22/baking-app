@@ -87,9 +87,10 @@ public class RecipeActivity extends AppCompatActivity {
                 line.append(ingredientObj.getQuantity());
                 line.append(getString(R.string.space));
                 line.append(ingredientObj.getMeasure());
-                line.append(getString(R.string.space));
-                line.append(getString(R.string.space));
-                line.append(getString(R.string.space));
+                line.append("\n");
+//                line.append(getString(R.string.space));
+//                line.append(getString(R.string.space));
+//                line.append(getString(R.string.space));
                 line.append(ingredientObj.getIngredient());
                 line.append(getString(R.string.double_new_line));
             }
