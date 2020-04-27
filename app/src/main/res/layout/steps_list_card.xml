@@ -24,10 +24,9 @@
 
     <ImageView
         android:id="@+id/goto_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="center_vertical|end"
-        android:layout_margin="16dp"
         android:contentDescription="@string/goto_icon"
         android:src="@android:drawable/ic_media_play" />
 

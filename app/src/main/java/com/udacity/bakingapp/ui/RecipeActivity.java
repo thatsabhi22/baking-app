@@ -10,11 +10,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.adapters.StepsAdapter;
+import com.udacity.bakingapp.fragments.VideoPlayerFragment;
 import com.udacity.bakingapp.models.Dish;
 import com.udacity.bakingapp.models.Ingredient;
 import com.udacity.bakingapp.models.Step;
@@ -24,7 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
+
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -47,10 +49,9 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
 
-        if(findViewById(R.id.recipe_tablet_layout)!=null){
+        if (findViewById(R.id.recipe_tablet_layout) != null) {
             isTablet = true;
-        }
-        else{
+        } else {
             isTablet = false;
         }
 
@@ -68,9 +69,10 @@ public class RecipeActivity extends AppCompatActivity {
         setTitle(dishName);
 
         if (isTablet) {
+            playFirstVideo(dish.getSteps().get(0));
 
-        }
-        else{
+
+        } else {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             Toast.makeText(this, "Steps below", Toast.LENGTH_SHORT).show();
@@ -88,9 +90,6 @@ public class RecipeActivity extends AppCompatActivity {
                 line.append(getString(R.string.space));
                 line.append(ingredientObj.getMeasure());
                 line.append("\n");
-//                line.append(getString(R.string.space));
-//                line.append(getString(R.string.space));
-//                line.append(getString(R.string.space));
                 line.append(ingredientObj.getIngredient());
                 line.append(getString(R.string.double_new_line));
             }
@@ -106,6 +105,19 @@ public class RecipeActivity extends AppCompatActivity {
             stepsRecyclerView.setLayoutManager(mLayoutManager);
             stepsRecyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void playFirstVideo(Step step) {
+        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
+        Bundle stepsBundle = new Bundle();
+        stepsBundle.putParcelable("step_single", step);
+        videoPlayerFragment.setArguments(stepsBundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.player_container, videoPlayerFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void closeOnError() {
