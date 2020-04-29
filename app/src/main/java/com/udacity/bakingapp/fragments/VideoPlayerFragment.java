@@ -14,14 +14,15 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.udacity.bakingapp.R;
@@ -45,7 +46,7 @@ public class VideoPlayerFragment extends Fragment {
     TextView mStepTitle;
 
     @BindView(R.id.player_view_tablet)
-    SimpleExoPlayerView mPlayerView;
+    PlayerView mPlayerView;
 
     @BindView(R.id.step_description_tv)
     TextView mStepDescription;
@@ -71,11 +72,10 @@ public class VideoPlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_video_player, container, false);
-
         ButterKnife.bind(this, root);
 
         // Check if there is any state saved
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             mStep = savedInstanceState.getParcelable(STEP_SINGLE);
             mShouldPlayWhenReady = savedInstanceState.getBoolean(STEP_PLAY_WHEN_READY);
             mPlayerPosition = savedInstanceState.getLong(STEP_VIDEO_POSITION);
@@ -83,8 +83,8 @@ public class VideoPlayerFragment extends Fragment {
             mVideoUri = Uri.parse(savedInstanceState.getString(STEP_URI));
         }
         // If there is no saved state getArguments from CookingActivity
-        else{
-            if(getArguments() != null){
+        else {
+            if (getArguments() != null) {
 
                 mImageViewPlaceholder.setVisibility(View.GONE);
                 mPlayerView.setVisibility(View.VISIBLE);
@@ -93,15 +93,14 @@ public class VideoPlayerFragment extends Fragment {
                 mStep = getArguments().getParcelable(STEP_SINGLE);
 
                 // If has no video
-                if(mStep.getVideoURL().equals("")){
+                if (mStep.getVideoURL().equals("")) {
                     // Check thumbnail
-                    if(mStep.getThumbnailURL().equals("")){
+                    if (mStep.getThumbnailURL().equals("")) {
                         // If no video or thumbnail, use placeholder image
                         mPlayerView.setUseArtwork(true);
                         mImageViewPlaceholder.setVisibility(View.VISIBLE);
                         mPlayerView.setUseController(false);
-                    }
-                    else{
+                    } else {
                         mImageViewPlaceholder.setVisibility(View.GONE);
                         mPlayerView.setVisibility(View.VISIBLE);
                         mVideoThumbnail = mStep.getThumbnailURL();
@@ -109,15 +108,12 @@ public class VideoPlayerFragment extends Fragment {
                         mPlayerView.setUseArtwork(true);
                         mPlayerView.setDefaultArtwork(mVideoThumbnailImage);
                     }
-                }
-                else{
+                } else {
                     mVideoUri = Uri.parse(mStep.getVideoURL());
                 }
             }
         }
         return root;
-
-
     }
 
     public void initializeVideoPlayer(Uri videoUri) {
@@ -127,26 +123,20 @@ public class VideoPlayerFragment extends Fragment {
 
         if (mSimpleExoPlayer == null) {
 
-            mSimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(),
-                    new DefaultTrackSelector(),
-                    new DefaultLoadControl());
+            mSimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity());
 
             // Bind the player to the view.
             mPlayerView.setPlayer(mSimpleExoPlayer);
 
             // Prepare the MediaSource.
             String userAgent = Util.getUserAgent(getActivity(), getString(R.string.app_name));
-            MediaSource mediaSource = new ExtractorMediaSource(videoUri,
-                    new DefaultDataSourceFactory(getActivity(), userAgent),
-                    new DefaultExtractorsFactory(),
-                    null,
-                    null);
+            MediaSource mediaSource = buildMediaSource(videoUri);
 
             if (mPlayerPosition != C.TIME_UNSET) {
                 mSimpleExoPlayer.seekTo(mPlayerPosition);
             }
             // Prepare the player with the source.
-            mSimpleExoPlayer.prepare(mediaSource);
+            mSimpleExoPlayer.prepare(mediaSource,false,false);
             mSimpleExoPlayer.setPlayWhenReady(mShouldPlayWhenReady);
         }
     }
@@ -209,5 +199,12 @@ public class VideoPlayerFragment extends Fragment {
             mWindowIndex = mSimpleExoPlayer.getCurrentWindowIndex();
             mPlayerPosition = mSimpleExoPlayer.getCurrentPosition();
         }
+    }
+
+    private MediaSource buildMediaSource(Uri uri) {
+        DataSource.Factory dataSourceFactory =
+                new DefaultDataSourceFactory(getActivity(), getString(R.string.app_name));
+        return new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(uri);
     }
 }

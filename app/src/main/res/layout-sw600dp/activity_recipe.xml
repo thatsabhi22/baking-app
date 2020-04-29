@@ -29,7 +29,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_weight="15"
-        android:background="#FFCCAA" />
+        android:layout_weight="15"/>
 
 </LinearLayout>
