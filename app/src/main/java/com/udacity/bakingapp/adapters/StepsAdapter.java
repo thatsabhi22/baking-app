@@ -1,7 +1,6 @@
 package com.udacity.bakingapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.models.Step;
-import com.udacity.bakingapp.ui.StepActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,11 +24,13 @@ public class StepsAdapter extends
     private final LayoutInflater inflater;
     private final Context mContext;
     private List<Step> steps = Collections.emptyList();
+    private OnStepClickListener onStepClickListener;
 
-    public StepsAdapter(Context mContext, List<Step> steps) {
+    public StepsAdapter(Context mContext, List<Step> steps,OnStepClickListener onStepClickListener) {
         inflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.steps = steps;
+        this.onStepClickListener = onStepClickListener;
     }
 
     @NonNull
@@ -49,9 +49,10 @@ public class StepsAdapter extends
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(mContext, StepActivity.class);
-                        intent.putExtra("step", current);
-                        mContext.startActivity(intent);
+                        onStepClickListener.onStepClick(position);
+//                        Intent intent = new Intent(mContext, StepActivity.class);
+//                        intent.putExtra("step", current);
+//                        mContext.startActivity(intent);
                     }
                 });
     }
@@ -59,6 +60,10 @@ public class StepsAdapter extends
     @Override
     public int getItemCount() {
         return steps == null ? 0 : steps.size();
+    }
+
+    public interface OnStepClickListener {
+        void onStepClick(int position);
     }
 
     public class StepsListViewHolder extends RecyclerView.ViewHolder {

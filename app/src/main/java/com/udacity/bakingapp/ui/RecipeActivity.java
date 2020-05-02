@@ -27,8 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements StepsAdapter.OnStepClickListener {
 
     @BindView(R.id.ingredient_list_tv)
     TextView ingredientListTV;
@@ -42,6 +41,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     StepsAdapter stepsAdapter;
     private boolean isTablet;
+    Dish dish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class RecipeActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        Dish dish = intent.getParcelableExtra("dish");
+        dish = intent.getParcelableExtra("dish");
         if (dish == null) {
             closeOnError();
         }
@@ -70,8 +70,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         if (isTablet) {
             playFirstVideo(dish.getSteps().get(0));
-
-
         } else {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -98,7 +96,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         List<Step> steps = dish.getSteps();
         if (steps != null && steps.size() > 0) {
-            stepsAdapter = new StepsAdapter(this, steps);
+            stepsAdapter = new StepsAdapter(this, steps,this);
             stepsRecyclerView.setAdapter(stepsAdapter);
             RecyclerView.LayoutManager mLayoutManager
                     = new LinearLayoutManager(this);
@@ -118,6 +116,29 @@ public class RecipeActivity extends AppCompatActivity {
                 .add(R.id.player_container, videoPlayerFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    // Initialize fragment
+    public void playVideoReplace(Step step){
+        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
+        Bundle stepsBundle = new Bundle();
+        stepsBundle.putParcelable("step_single", step);
+        videoPlayerFragment.setArguments(stepsBundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.player_container, videoPlayerFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onStepClick(int position) {
+        if (isTablet) {
+            playVideoReplace(dish.getSteps().get(position));
+        }
+//        Toast.makeText(this,
+//                "This is the position - "+position,Toast.LENGTH_SHORT).show();
     }
 
     private void closeOnError() {
