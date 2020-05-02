@@ -39,9 +39,12 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     @BindView(R.id.steps_recycler_view)
     RecyclerView stepsRecyclerView;
 
-    StepsAdapter stepsAdapter;
-    private boolean isTablet;
     Dish dish;
+    StepsAdapter stepsAdapter;
+    VideoPlayerFragment videoPlayerFragment;
+    FragmentManager fragmentManager;
+    Bundle stepsBundle;
+    private boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +99,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
 
         List<Step> steps = dish.getSteps();
         if (steps != null && steps.size() > 0) {
-            stepsAdapter = new StepsAdapter(this, steps,this);
+            stepsAdapter = new StepsAdapter(this, steps, this);
             stepsRecyclerView.setAdapter(stepsAdapter);
             RecyclerView.LayoutManager mLayoutManager
                     = new LinearLayoutManager(this);
@@ -106,12 +109,12 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     }
 
     private void playFirstVideo(Step step) {
-        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
-        Bundle stepsBundle = new Bundle();
+        videoPlayerFragment = new VideoPlayerFragment();
+        stepsBundle = new Bundle();
         stepsBundle.putParcelable("step_single", step);
         videoPlayerFragment.setArguments(stepsBundle);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(R.id.player_container, videoPlayerFragment)
                 .addToBackStack(null)
@@ -119,13 +122,13 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     }
 
     // Initialize fragment
-    public void playVideoReplace(Step step){
-        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
-        Bundle stepsBundle = new Bundle();
+    public void playVideoReplace(Step step) {
+        videoPlayerFragment = new VideoPlayerFragment();
+        stepsBundle = new Bundle();
         stepsBundle.putParcelable("step_single", step);
         videoPlayerFragment.setArguments(stepsBundle);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.player_container, videoPlayerFragment)
                 .addToBackStack(null)
@@ -134,11 +137,16 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
 
     @Override
     public void onStepClick(int position) {
+        Step currentStep = dish.getSteps().get(position);
         if (isTablet) {
-            playVideoReplace(dish.getSteps().get(position));
+            playVideoReplace(currentStep);
+        } else {
+            Intent intent = new Intent(this, StepActivity.class);
+            intent.putExtra("step", currentStep);
+            this.startActivity(intent);
+            Toast.makeText(this,
+                    "This is the position - " + position, Toast.LENGTH_SHORT).show();
         }
-//        Toast.makeText(this,
-//                "This is the position - "+position,Toast.LENGTH_SHORT).show();
     }
 
     private void closeOnError() {

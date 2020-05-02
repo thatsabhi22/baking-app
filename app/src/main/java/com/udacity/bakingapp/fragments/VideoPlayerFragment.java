@@ -42,7 +42,7 @@ public class VideoPlayerFragment extends Fragment {
     @BindView(R.id.step_title_tv)
     TextView mStepTitle;
 
-    @BindView(R.id.player_view_tablet)
+    @BindView(R.id.player_view)
     PlayerView mPlayerView;
 
     @BindView(R.id.step_description_tv)

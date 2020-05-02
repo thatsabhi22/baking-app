@@ -26,7 +26,7 @@ public class StepsAdapter extends
     private List<Step> steps = Collections.emptyList();
     private OnStepClickListener onStepClickListener;
 
-    public StepsAdapter(Context mContext, List<Step> steps,OnStepClickListener onStepClickListener) {
+    public StepsAdapter(Context mContext, List<Step> steps, OnStepClickListener onStepClickListener) {
         inflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.steps = steps;
@@ -50,9 +50,6 @@ public class StepsAdapter extends
                     @Override
                     public void onClick(View view) {
                         onStepClickListener.onStepClick(position);
-//                        Intent intent = new Intent(mContext, StepActivity.class);
-//                        intent.putExtra("step", current);
-//                        mContext.startActivity(intent);
                     }
                 });
     }
