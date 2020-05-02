@@ -16,11 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -119,6 +116,7 @@ public class VideoPlayerFragment extends Fragment {
     public void initializeVideoPlayer(Uri videoUri) {
 
         mStepDescription.setText(mStep.getDescription());
+        mStepTitle.setVisibility(View.VISIBLE);
         mStepTitle.setText(mStep.getShortDescription());
 
         if (mSimpleExoPlayer == null) {
@@ -136,7 +134,7 @@ public class VideoPlayerFragment extends Fragment {
                 mSimpleExoPlayer.seekTo(mPlayerPosition);
             }
             // Prepare the player with the source.
-            mSimpleExoPlayer.prepare(mediaSource,false,false);
+            mSimpleExoPlayer.prepare(mediaSource, false, false);
             mSimpleExoPlayer.setPlayWhenReady(mShouldPlayWhenReady);
         }
     }
