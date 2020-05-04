@@ -148,8 +148,8 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             intent.putExtra("stepNumber", currentStep.getId());
             intent.putParcelableArrayListExtra("allSteps", stepList);
             this.startActivity(intent);
-            Toast.makeText(this,
-                    "This is the position - " + position, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this,
+//                    "This is the position - " + position, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -98,12 +98,15 @@ public class VideoPlayerFragment extends Fragment {
                         // If no video or thumbnail, use placeholder image
                         mPlayerView.setUseArtwork(true);
                         mImageViewPlaceholder.setVisibility(View.VISIBLE);
+                        mImageViewPlaceholder.setImageResource(R.drawable.placeholder);
                         mPlayerView.setUseController(false);
+                        mPlayerView.setVisibility(View.INVISIBLE);
                     } else {
                         mImageViewPlaceholder.setVisibility(View.GONE);
                         mPlayerView.setVisibility(View.VISIBLE);
                         mVideoThumbnail = mStep.getThumbnailURL();
-                        mVideoThumbnailImage = ThumbnailUtils.createVideoThumbnail(mVideoThumbnail, MediaStore.Video.Thumbnails.MICRO_KIND);
+                        mVideoThumbnailImage = ThumbnailUtils
+                                .createVideoThumbnail(mVideoThumbnail, MediaStore.Video.Thumbnails.MICRO_KIND);
                         mPlayerView.setUseArtwork(true);
                         mPlayerView.setDefaultArtwork(mVideoThumbnailImage);
                     }

@@ -7,6 +7,7 @@
     <string name="retry">Retry</string>
     <string name="json_pile_path">json/baking.json</string>
     <string name="title_activity_recipe">RecipeActivity</string>
+    <string name="title_step_recipe">StepActivity</string>
     <string name="space">\u0020</string>
     <string name="new_line">\n</string>
     <string name="double_new_line">\n\n</string>
