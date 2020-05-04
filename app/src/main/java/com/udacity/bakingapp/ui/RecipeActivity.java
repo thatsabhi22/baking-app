@@ -145,7 +145,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             playVideoReplace(currentStep);
         } else {
             Intent intent = new Intent(this, StepActivity.class);
-            intent.putExtra("step", currentStep);
+            intent.putExtra("stepNumber", currentStep.getId());
             intent.putParcelableArrayListExtra("allSteps", stepList);
             this.startActivity(intent);
             Toast.makeText(this,

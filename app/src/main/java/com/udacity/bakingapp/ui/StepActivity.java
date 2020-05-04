@@ -50,10 +50,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
             closeOnError();
         }
 
-        step = intent.getParcelableExtra("step");
-        if (step == null) {
-            closeOnError();
-        }
+        mVideoNumber = intent.getIntExtra("stepNumber",0);
         mStepArrayList = intent.getParcelableArrayListExtra("allSteps");
 
         // If there is no saved state, instantiate fragment
@@ -74,7 +71,6 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(R.id.player_container, videoPlayerFragment)
-                .addToBackStack(null)
                 .commit();
     }
 
@@ -88,7 +84,6 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.player_container, videoPlayerFragment)
-                .addToBackStack(null)
                 .commit();
     }
 
@@ -100,6 +95,9 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if(mVideoNumber<0){
+            mVideoNumber=0;
+        }
         //If it's last step show cooking is over
         if (mVideoNumber == mStepArrayList.size() - 1) {
             Toast.makeText(this, R.string.steps_over, Toast.LENGTH_SHORT).show();
