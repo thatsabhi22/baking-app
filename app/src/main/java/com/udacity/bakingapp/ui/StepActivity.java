@@ -50,7 +50,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
             closeOnError();
         }
 
-        mVideoNumber = intent.getIntExtra("stepNumber",0);
+        mVideoNumber = intent.getIntExtra("stepNumber", 0);
         mStepArrayList = intent.getParcelableArrayListExtra("allSteps");
 
         // If there is no saved state, instantiate fragment
@@ -95,21 +95,20 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(mVideoNumber<0){
-            mVideoNumber=0;
+        if (mVideoNumber < 0) {
+            mVideoNumber = 0;
         }
-        //If it's last step show cooking is over
-        if (mVideoNumber == mStepArrayList.size() - 1) {
-            Toast.makeText(this, R.string.steps_over, Toast.LENGTH_SHORT).show();
-        } else {
-            if (v.getId() == mPreviousBtn.getId()) {
-                mVideoNumber--;
-                if (mVideoNumber < 0) {
-                    Toast.makeText(this,
-                            R.string.you_better_see_next_step, Toast.LENGTH_SHORT).show();
-                } else
-                    playVideoReplace(mStepArrayList.get(mVideoNumber));
-            } else if (v.getId() == mNextBtn.getId()) {
+        if (v.getId() == mPreviousBtn.getId()) {
+            mVideoNumber--;
+            if (mVideoNumber < 0) {
+                Toast.makeText(this,
+                        R.string.go_next_step, Toast.LENGTH_SHORT).show();
+            } else
+                playVideoReplace(mStepArrayList.get(mVideoNumber));
+        } else if (v.getId() == mNextBtn.getId()) {
+            if (mVideoNumber == mStepArrayList.size() - 1) {
+                Toast.makeText(this, R.string.steps_over, Toast.LENGTH_SHORT).show();
+            } else {
                 mVideoNumber++;
                 playVideoReplace(mStepArrayList.get(mVideoNumber));
             }
