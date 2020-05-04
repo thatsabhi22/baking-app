@@ -22,6 +22,7 @@ import com.udacity.bakingapp.models.Ingredient;
 import com.udacity.bakingapp.models.Step;
 import com.udacity.bakingapp.utils.QueryUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,6 +45,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     VideoPlayerFragment videoPlayerFragment;
     FragmentManager fragmentManager;
     Bundle stepsBundle;
+    ArrayList<Step> stepList;
     private boolean isTablet;
 
     @Override
@@ -64,10 +66,11 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         }
 
         dish = intent.getParcelableExtra("dish");
+
         if (dish == null) {
             closeOnError();
         }
-
+        stepList = (ArrayList<Step>) dish.getSteps();
         String dishName = dish.getName();
         setTitle(dishName);
 
@@ -137,12 +140,13 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
 
     @Override
     public void onStepClick(int position) {
-        Step currentStep = dish.getSteps().get(position);
+        Step currentStep = stepList.get(position);
         if (isTablet) {
             playVideoReplace(currentStep);
         } else {
             Intent intent = new Intent(this, StepActivity.class);
             intent.putExtra("step", currentStep);
+            intent.putParcelableArrayListExtra("allSteps", stepList);
             this.startActivity(intent);
             Toast.makeText(this,
                     "This is the position - " + position, Toast.LENGTH_SHORT).show();

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.exoplayer2.C;
@@ -70,6 +71,7 @@ public class VideoPlayerFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_video_player, container, false);
         ButterKnife.bind(this, root);
+
 
         // Check if there is any state saved
         if (savedInstanceState != null) {
@@ -147,6 +149,16 @@ public class VideoPlayerFragment extends Fragment {
             mSimpleExoPlayer.release();
             mSimpleExoPlayer = null;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        updateStartPosition();
+        outState.putString(STEP_URI, mStep.getVideoURL());
+        outState.putParcelable(STEP_SINGLE, mStep);
+        outState.putLong(STEP_VIDEO_POSITION, mPlayerPosition);
+        outState.putBoolean(STEP_PLAY_WHEN_READY, mShouldPlayWhenReady);
     }
 
     @Override

@@ -112,4 +112,6 @@
     <string name="placeholder_image">{Placeholder Image}</string>
     <string name="next_step">NEXT</string>
     <string name="previous_step">PREVIOUS</string>
+    <string name="steps_over">Cooking\'s Up</string>
+    <string name="you_better_see_next_step">You better see next step!</string>
 </resources>
