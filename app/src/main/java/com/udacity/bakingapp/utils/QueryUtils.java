@@ -1,7 +1,6 @@
 package com.udacity.bakingapp.utils;
 
 import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,9 +15,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +37,7 @@ public final class QueryUtils {
      * Return an {@link Dish} object by parsing out information
      * about the first movie from the input dishJSON string.
      */
-    public static ArrayList<Dish> extractMoviesFromJson(String dishJSON) {
+    public static ArrayList<Dish> extractDishesFromJson(String dishJSON) {
         ArrayList<Dish> dishes = new ArrayList<>();
 
         // If the JSON string is empty or null, then return early.
@@ -101,26 +97,6 @@ public final class QueryUtils {
         return dishes;
     }
 
-    /**
-     * No Network Condition handled based on link below
-     * https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out
-     */
-
-    public static boolean isOnline() {
-        try {
-            int timeoutMs = 1500;
-            Socket sock = new Socket();
-            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
-
-            sock.connect(sockaddr, timeoutMs);
-            sock.close();
-
-            return false;
-        } catch (IOException e) {
-            return true;
-        }
-    }
-
     public static String mReadJsonData(AssetManager am, String filePath) {
         String text = "";
         try {
@@ -163,15 +139,5 @@ public final class QueryUtils {
             }
         }
         return imageId;
-    }
-
-    public static class CheckOnlineStatus extends AsyncTask<Void, Integer, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            //This is a background thread, when it finishes executing will return the result from your function.
-            Boolean isOffline;
-            isOffline = isOnline();
-            return isOffline;
-        }
     }
 }

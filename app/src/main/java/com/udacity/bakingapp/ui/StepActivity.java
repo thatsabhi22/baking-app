@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -60,6 +61,18 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
 
         mNextBtn.setOnClickListener(this);
         mPreviousBtn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("step_number", mVideoNumber);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mVideoNumber = savedInstanceState.getInt("step_number");
     }
 
     private void playVideo(Step step) {

@@ -47,7 +47,7 @@ public class DishesActivity extends AppCompatActivity {
         String dishesJSON = QueryUtils.mReadJsonData(assetManager, getString(R.string.json_pile_path));
 
         if (!TextUtils.isEmpty(dishesJSON)) {
-            dishesList = QueryUtils.extractMoviesFromJson(dishesJSON);
+            dishesList = QueryUtils.extractDishesFromJson(dishesJSON);
         }
 
         dishesAdapter = new DishesAdapter(this, dishesList);

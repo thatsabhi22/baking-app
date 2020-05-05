@@ -5,6 +5,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,13 @@ public class VideoPlayerFragment extends Fragment {
             mPlayerPosition = savedInstanceState.getLong(STEP_VIDEO_POSITION);
             mWindowIndex = savedInstanceState.getInt(STEP_PLAY_WINDOW_INDEX);
             mVideoUri = Uri.parse(savedInstanceState.getString(STEP_URI));
+            if (TextUtils.isEmpty(mStep.getVideoURL()) &&
+                    TextUtils.isEmpty(mStep.getThumbnailURL())) {
+                mImageViewPlaceholder.setVisibility(View.VISIBLE);
+                mPlayerView.setVisibility(View.INVISIBLE);
+            } else {
+                mImageViewPlaceholder.setVisibility(View.INVISIBLE);
+            }
         }
         // If there is no saved state getArguments from CookingActivity
         else {
