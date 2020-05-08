@@ -51,34 +51,8 @@ public final class QueryUtils {
             if (baseJsonResponseArray.length() > 0) {
                 for (int i = 0; i < baseJsonResponseArray.length(); i++) {
                     JSONObject dishObj = baseJsonResponseArray.getJSONObject(i);
-
-                    JSONArray ingredientArray = dishObj.optJSONArray("ingredients");
-                    List<Ingredient> ingList = new ArrayList<>();
-                    if (ingredientArray != null && ingredientArray.length() > 0) {
-                        for (int j = 0; j < ingredientArray.length(); j++) {
-                            JSONObject ingredientObj = ingredientArray.getJSONObject(j);
-                            Ingredient ingredient = new Ingredient();
-                            ingredient.setIngredient(ingredientObj.optString("ingredient"));
-                            ingredient.setQuantity(ingredientObj.optInt("quantity", 0));
-                            ingredient.setMeasure(ingredientObj.optString("measure"));
-                            ingList.add(ingredient);
-                        }
-                    }
-
-                    JSONArray stepsArray = dishObj.optJSONArray("steps");
-                    List<Step> stepsList = new ArrayList<>();
-                    if (stepsArray != null && stepsArray.length() > 0) {
-                        for (int j = 0; j < stepsArray.length(); j++) {
-                            JSONObject stepObj = stepsArray.getJSONObject(j);
-                            Step step = new Step();
-                            step.setId(stepObj.optInt("id", 0));
-                            step.setShortDescription(stepObj.optString("shortDescription"));
-                            step.setDescription(stepObj.optString("description"));
-                            step.setVideoURL(stepObj.optString("videoURL"));
-                            step.setThumbnailURL(stepObj.optString("thumbnailURL"));
-                            stepsList.add(step);
-                        }
-                    }
+                    List<Ingredient> ingList = getIngredients(dishObj);
+                    List<Step> stepsList = getStepList(dishObj);
 
                     Dish dish = new Dish();
                     dish.setId(dishObj.optInt("id"));
@@ -95,6 +69,40 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem parsing the movies JSON results", e);
         }
         return dishes;
+    }
+
+    private static List<Step> getStepList(JSONObject dishObj) throws JSONException {
+        JSONArray stepsArray = dishObj.optJSONArray("steps");
+        List<Step> stepsList = new ArrayList<>();
+        if (stepsArray != null && stepsArray.length() > 0) {
+            for (int j = 0; j < stepsArray.length(); j++) {
+                JSONObject stepObj = stepsArray.getJSONObject(j);
+                Step step = new Step();
+                step.setId(stepObj.optInt("id", 0));
+                step.setShortDescription(stepObj.optString("shortDescription"));
+                step.setDescription(stepObj.optString("description"));
+                step.setVideoURL(stepObj.optString("videoURL"));
+                step.setThumbnailURL(stepObj.optString("thumbnailURL"));
+                stepsList.add(step);
+            }
+        }
+        return stepsList;
+    }
+
+    public static List<Ingredient> getIngredients(JSONObject dishObj) throws JSONException {
+        JSONArray ingredientArray = dishObj.optJSONArray("ingredients");
+        List<Ingredient> ingList = new ArrayList<>();
+        if (ingredientArray != null && ingredientArray.length() > 0) {
+            for (int j = 0; j < ingredientArray.length(); j++) {
+                JSONObject ingredientObj = ingredientArray.getJSONObject(j);
+                Ingredient ingredient = new Ingredient();
+                ingredient.setIngredient(ingredientObj.optString("ingredient"));
+                ingredient.setQuantity(ingredientObj.optInt("quantity", 0));
+                ingredient.setMeasure(ingredientObj.optString("measure"));
+                ingList.add(ingredient);
+            }
+        }
+        return ingList;
     }
 
     public static String mReadJsonData(AssetManager am, String filePath) {

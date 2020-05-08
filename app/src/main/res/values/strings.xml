@@ -115,4 +115,6 @@
     <string name="previous_step">PREVIOUS</string>
     <string name="steps_over">Cooking\'s Up</string>
     <string name="go_next_step">It\'s just start... Go to Next Step</string>
+    <string name="dish_icon">widget_dish_icon</string>
+    <string name="latest_dish_ingredients_open_here">Open List of Ingredients of latest Dish you opened</string>
 </resources>

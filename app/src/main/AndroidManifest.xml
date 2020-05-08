@@ -20,9 +20,20 @@
         <activity
             android:name=".ui.RecipeActivity"
             android:label="@string/title_activity_recipe"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.StepActivity" />
-    </application>
+        <activity android:name=".ui.StepActivity" />
 
+        <service android:name=".widget.BakingAppWidgetService" />
+
+        <receiver android:name=".widget.BakingAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/bakingapp_widget_provider_info" />
+        </receiver>
+    </application>
 </manifest>

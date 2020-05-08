@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.5'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.5'
     implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 

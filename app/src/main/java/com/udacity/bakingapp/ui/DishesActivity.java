@@ -50,7 +50,7 @@ public class DishesActivity extends AppCompatActivity {
             dishesList = QueryUtils.extractDishesFromJson(dishesJSON);
         }
 
-        dishesAdapter = new DishesAdapter(this, dishesList);
+        dishesAdapter = new DishesAdapter(this, dishesList, dishesJSON);
         dishListRecyclerView.setAdapter(dishesAdapter);
 
         if (isTablet) {
