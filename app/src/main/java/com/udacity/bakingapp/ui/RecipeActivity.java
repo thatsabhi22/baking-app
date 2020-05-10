@@ -1,7 +1,9 @@
 package com.udacity.bakingapp.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,9 @@ import com.udacity.bakingapp.models.Ingredient;
 import com.udacity.bakingapp.models.Step;
 import com.udacity.bakingapp.utils.ConstantsUtil;
 import com.udacity.bakingapp.utils.QueryUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +71,21 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             closeOnError();
         }
 
-        dish = intent.getParcelableExtra(ConstantsUtil.SELECTED_DISH_KEY);
+
+        if(!TextUtils.isEmpty(intent.getStringExtra(ConstantsUtil.WIDGET_KEY))){
+            SharedPreferences sharedpreferences =
+                    getSharedPreferences(ConstantsUtil.BAKINGAPP_SHARED_PREFERENCES,MODE_PRIVATE);
+            String jsonDish = sharedpreferences.getString(ConstantsUtil.CURRENT_DISH_JSON, "");
+            try {
+                JSONObject dishObj = new JSONObject(jsonDish);
+                dish = QueryUtils.getDish(dishObj);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            dish = intent.getParcelableExtra(ConstantsUtil.SELECTED_DISH_KEY);
+        }
 
         if (dish == null) {
             closeOnError();

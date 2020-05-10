@@ -47,21 +47,10 @@ public final class QueryUtils {
 
         try {
             JSONArray baseJsonResponseArray = new JSONArray(dishJSON);
-
             if (baseJsonResponseArray.length() > 0) {
                 for (int i = 0; i < baseJsonResponseArray.length(); i++) {
                     JSONObject dishObj = baseJsonResponseArray.getJSONObject(i);
-                    List<Ingredient> ingList = getIngredients(dishObj);
-                    List<Step> stepsList = getStepList(dishObj);
-
-                    Dish dish = new Dish();
-                    dish.setId(dishObj.optInt("id"));
-                    dish.setName(dishObj.optString("name"));
-                    dish.setImage(dishObj.optString("image"));
-                    dish.setIngredients(ingList);
-                    dish.setSteps(stepsList);
-                    dish.setServings(dishObj.optInt("servings"));
-
+                    Dish dish = getDish(dishObj);
                     dishes.add(dish);
                 }
             }
@@ -69,6 +58,20 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem parsing the movies JSON results", e);
         }
         return dishes;
+    }
+
+    public static Dish getDish(JSONObject dishObj) throws JSONException {
+        List<Ingredient> ingList = getIngredients(dishObj);
+        List<Step> stepsList = getStepList(dishObj);
+
+        Dish dish = new Dish();
+        dish.setId(dishObj.optInt("id"));
+        dish.setName(dishObj.optString("name"));
+        dish.setImage(dishObj.optString("image"));
+        dish.setIngredients(ingList);
+        dish.setSteps(stepsList);
+        dish.setServings(dishObj.optInt("servings"));
+        return dish;
     }
 
     private static List<Step> getStepList(JSONObject dishObj) throws JSONException {
