@@ -53,12 +53,15 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     Bundle stepsBundle;
     ArrayList<Step> stepList;
     private boolean isTablet;
+    Bundle saved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
+
+        saved = savedInstanceState;
 
         if (findViewById(R.id.recipe_tablet_layout) != null) {
             isTablet = true;
@@ -70,7 +73,6 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         if (intent == null) {
             closeOnError();
         }
-
 
         if(!TextUtils.isEmpty(intent.getStringExtra(ConstantsUtil.WIDGET_KEY))){
             SharedPreferences sharedpreferences =
@@ -138,10 +140,12 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.player_container, videoPlayerFragment)
-                .addToBackStack(null)
-                .commit();
+        if(saved == null) {
+            fragmentManager.beginTransaction()
+                    .add(R.id.player_container, videoPlayerFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     // Initialize fragment
@@ -156,6 +160,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
                 .replace(R.id.player_container, videoPlayerFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     @Override

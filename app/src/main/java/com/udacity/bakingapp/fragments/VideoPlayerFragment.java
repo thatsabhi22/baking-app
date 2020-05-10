@@ -84,6 +84,7 @@ public class VideoPlayerFragment extends Fragment {
             if (TextUtils.isEmpty(mStep.getVideoURL()) &&
                     TextUtils.isEmpty(mStep.getThumbnailURL())) {
                 mImageViewPlaceholder.setVisibility(View.VISIBLE);
+                mImageViewPlaceholder.setImageResource(R.drawable.placeholder);
                 mPlayerView.setVisibility(View.INVISIBLE);
             } else {
                 mImageViewPlaceholder.setVisibility(View.INVISIBLE);
@@ -166,10 +167,12 @@ public class VideoPlayerFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         updateStartPosition();
-        outState.putString(STEP_URI, mStep.getVideoURL());
-        outState.putParcelable(STEP_SINGLE, mStep);
-        outState.putLong(STEP_VIDEO_POSITION, mPlayerPosition);
-        outState.putBoolean(STEP_PLAY_WHEN_READY, mShouldPlayWhenReady);
+        if(mStep!=null) {
+            outState.putString(STEP_URI, mStep.getVideoURL());
+            outState.putParcelable(STEP_SINGLE, mStep);
+            outState.putLong(STEP_VIDEO_POSITION, mPlayerPosition);
+            outState.putBoolean(STEP_PLAY_WHEN_READY, mShouldPlayWhenReady);
+        }
     }
 
     @Override
