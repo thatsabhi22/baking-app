@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.ui.RecipeActivity;
+import com.udacity.bakingapp.utils.ConstantsUtil;
 
 /**
  * Implementation of App Widget functionality.
@@ -21,7 +22,7 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.bakingapp_widget_provider);
 
         Intent intent = new Intent(context, RecipeActivity.class);
-        intent.putExtra("widget_extra", "CAME_FROM_WIDGET");
+        intent.putExtra(ConstantsUtil.WIDGET_KEY, ConstantsUtil.WIDGET_CLICK_IDENTIFIER);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         if (jsonRecipeIngredients.equals("")) {

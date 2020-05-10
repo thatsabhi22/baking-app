@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.fragments.VideoPlayerFragment;
 import com.udacity.bakingapp.models.Step;
+import com.udacity.bakingapp.utils.ConstantsUtil;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,6 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.previous_btn)
     Button mPreviousBtn;
 
-    private Step step;
     private int mVideoNumber = 0;
 
     @Override
@@ -51,8 +51,8 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
             closeOnError();
         }
 
-        mVideoNumber = intent.getIntExtra("stepNumber", 0);
-        mStepArrayList = intent.getParcelableArrayListExtra("allSteps");
+        mVideoNumber = intent.getIntExtra(ConstantsUtil.COOKING_STEP_NUMBER_KEY, 0);
+        mStepArrayList = intent.getParcelableArrayListExtra(ConstantsUtil.ALL_STEP_KEY);
 
         // If there is no saved state, instantiate fragment
         if (savedInstanceState == null) {
@@ -66,19 +66,19 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("step_number", mVideoNumber);
+        outState.putInt(ConstantsUtil.COOKING_STEP_NUMBER_KEY_ONSAVEINSTANCE, mVideoNumber);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mVideoNumber = savedInstanceState.getInt("step_number");
+        mVideoNumber = savedInstanceState.getInt(ConstantsUtil.COOKING_STEP_NUMBER_KEY_ONSAVEINSTANCE);
     }
 
     private void playVideo(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
-        stepsBundle.putParcelable("step_single", step);
+        stepsBundle.putParcelable(ConstantsUtil.SINGLE_STEP_KEY, step);
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
@@ -91,7 +91,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
     public void playVideoReplace(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
-        stepsBundle.putParcelable("step_single", step);
+        stepsBundle.putParcelable(ConstantsUtil.SINGLE_STEP_KEY, step);
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
@@ -103,7 +103,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
     private void closeOnError() {
         finish();
         Toast.makeText(this,
-                "Something went wrong.", Toast.LENGTH_SHORT).show();
+                ConstantsUtil.ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 
     @Override

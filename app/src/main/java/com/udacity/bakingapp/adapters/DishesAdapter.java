@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 import com.udacity.bakingapp.R;
 import com.udacity.bakingapp.models.Dish;
 import com.udacity.bakingapp.ui.RecipeActivity;
+import com.udacity.bakingapp.utils.ConstantsUtil;
 import com.udacity.bakingapp.utils.QueryUtils;
 import com.udacity.bakingapp.widget.BakingAppWidgetService;
 
@@ -66,13 +67,14 @@ public class DishesAdapter extends
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(mContext, RecipeActivity.class);
-                        intent.putExtra("dish", current);
+                        intent.putExtra(ConstantsUtil.SELECTED_DISH_KEY, current);
                         mContext.startActivity(intent);
 
                         String currentJson = jsonToString(mJsonResult, holder.getAdapterPosition());
                         SharedPreferences.Editor editor = mContext
-                                .getSharedPreferences("bakingapp_shared_pref", MODE_PRIVATE).edit();
-                        editor.putString("json_result_extra", currentJson);
+                                .getSharedPreferences(ConstantsUtil.BAKINGAPP_SHARED_PREFERENCES, MODE_PRIVATE)
+                                .edit();
+                        editor.putString(ConstantsUtil.CURRENT_DISH_JSON, currentJson);
                         editor.apply();
 
                         if (Build.VERSION.SDK_INT > 25) {

@@ -20,6 +20,7 @@ import com.udacity.bakingapp.fragments.VideoPlayerFragment;
 import com.udacity.bakingapp.models.Dish;
 import com.udacity.bakingapp.models.Ingredient;
 import com.udacity.bakingapp.models.Step;
+import com.udacity.bakingapp.utils.ConstantsUtil;
 import com.udacity.bakingapp.utils.QueryUtils;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             closeOnError();
         }
 
-        dish = intent.getParcelableExtra("dish");
+        dish = intent.getParcelableExtra(ConstantsUtil.SELECTED_DISH_KEY);
 
         if (dish == null) {
             closeOnError();
@@ -79,7 +80,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         } else {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            Toast.makeText(this, "Steps below", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ConstantsUtil.COOKING_STEP_INFO, Toast.LENGTH_SHORT).show();
 
             int ImageId = QueryUtils.getImageId(dishName);
             backdropPosterIV.setImageResource(ImageId);
@@ -91,11 +92,11 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             StringBuilder line = new StringBuilder();
             for (Ingredient ingredientObj : ingredients) {
                 line.append(ingredientObj.getQuantity());
-                line.append(getString(R.string.space));
+                line.append(ConstantsUtil.SPACE);
                 line.append(ingredientObj.getMeasure());
-                line.append("\n");
+                line.append(ConstantsUtil.NEWLINE);
                 line.append(ingredientObj.getIngredient());
-                line.append(getString(R.string.double_new_line));
+                line.append(ConstantsUtil.DOUBLE_NEWLINE);
             }
             ingredientListTV.setText(line.toString());
         }
@@ -114,7 +115,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     private void playFirstVideo(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
-        stepsBundle.putParcelable("step_single", step);
+        stepsBundle.putParcelable(ConstantsUtil.SINGLE_STEP_KEY, step);
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
@@ -128,7 +129,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     public void playVideoReplace(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
-        stepsBundle.putParcelable("step_single", step);
+        stepsBundle.putParcelable(ConstantsUtil.SINGLE_STEP_KEY, step);
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
@@ -145,8 +146,8 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             playVideoReplace(currentStep);
         } else {
             Intent intent = new Intent(this, StepActivity.class);
-            intent.putExtra("stepNumber", currentStep.getId());
-            intent.putParcelableArrayListExtra("allSteps", stepList);
+            intent.putExtra(ConstantsUtil.COOKING_STEP_NUMBER_KEY, currentStep.getId());
+            intent.putParcelableArrayListExtra(ConstantsUtil.ALL_STEP_KEY, stepList);
             this.startActivity(intent);
 //            Toast.makeText(this,
 //                    "This is the position - " + position, Toast.LENGTH_SHORT).show();
@@ -156,6 +157,6 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     private void closeOnError() {
         finish();
         Toast.makeText(this,
-                "Something went wrong.", Toast.LENGTH_SHORT).show();
+                ConstantsUtil.ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }
