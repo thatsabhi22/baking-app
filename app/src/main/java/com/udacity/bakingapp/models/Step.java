@@ -3,6 +3,9 @@ package com.udacity.bakingapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Model Class {Step} defined as Parcelable
+ */
 public class Step implements Parcelable {
 
     public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {

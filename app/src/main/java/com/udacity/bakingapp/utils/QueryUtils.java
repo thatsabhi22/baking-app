@@ -60,6 +60,7 @@ public final class QueryUtils {
         return dishes;
     }
 
+    // Retrieve a Dish object from JSON
     public static Dish getDish(JSONObject dishObj) throws JSONException {
         List<Ingredient> ingList = getIngredients(dishObj);
         List<Step> stepsList = getStepList(dishObj);
@@ -74,6 +75,7 @@ public final class QueryUtils {
         return dish;
     }
 
+    // Parse the JSON to get list of cooking steps
     private static List<Step> getStepList(JSONObject dishObj) throws JSONException {
         JSONArray stepsArray = dishObj.optJSONArray("steps");
         List<Step> stepsList = new ArrayList<>();
@@ -92,6 +94,7 @@ public final class QueryUtils {
         return stepsList;
     }
 
+    // Parse the JSON to get list of dish ingredients
     public static List<Ingredient> getIngredients(JSONObject dishObj) throws JSONException {
         JSONArray ingredientArray = dishObj.optJSONArray("ingredients");
         List<Ingredient> ingList = new ArrayList<>();
@@ -108,6 +111,7 @@ public final class QueryUtils {
         return ingList;
     }
 
+    // Read a file containing the JSON Data
     public static String mReadJsonData(AssetManager am, String filePath) {
         String text = "";
         try {
@@ -124,6 +128,7 @@ public final class QueryUtils {
         return text;
     }
 
+    // Get Image id from a dish name
     public static int getImageId(String dishName) {
         int imageId = 0;
         if (dishName != null && !TextUtils.isEmpty(dishName)) {

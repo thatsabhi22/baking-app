@@ -14,10 +14,8 @@ import com.udacity.bakingapp.R;
  */
 public class RecipeFragment extends Fragment {
 
-    public RecipeFragment() {
-        // Required empty public constructor
-    }
-
+    // Required empty public constructor
+    public RecipeFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

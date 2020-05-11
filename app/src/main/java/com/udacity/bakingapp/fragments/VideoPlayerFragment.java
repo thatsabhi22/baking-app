@@ -32,6 +32,8 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
+ * This fragment contains the video player along with the text instructions
+ * for a particular cooking step
  */
 public class VideoPlayerFragment extends Fragment {
 
@@ -62,9 +64,8 @@ public class VideoPlayerFragment extends Fragment {
     int mWindowIndex;
     SimpleExoPlayer mSimpleExoPlayer;
 
-    public VideoPlayerFragment() {
-        // Required empty public constructor
-    }
+    // Required empty public constructor
+    public VideoPlayerFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +82,8 @@ public class VideoPlayerFragment extends Fragment {
             mPlayerPosition = savedInstanceState.getLong(STEP_VIDEO_POSITION);
             mWindowIndex = savedInstanceState.getInt(STEP_PLAY_WINDOW_INDEX);
             mVideoUri = Uri.parse(savedInstanceState.getString(STEP_URI));
+
+            // Check if any URLs available for a step
             if (TextUtils.isEmpty(mStep.getVideoURL()) &&
                     TextUtils.isEmpty(mStep.getThumbnailURL())) {
                 mImageViewPlaceholder.setVisibility(View.VISIBLE);
@@ -127,8 +130,8 @@ public class VideoPlayerFragment extends Fragment {
         return root;
     }
 
+    // Initializing a video player
     public void initializeVideoPlayer(Uri videoUri) {
-
         mStepDescription.setText(mStep.getDescription());
         mStepTitle.setVisibility(View.VISIBLE);
         mStepTitle.setText(mStep.getShortDescription());
@@ -217,6 +220,7 @@ public class VideoPlayerFragment extends Fragment {
         }
     }
 
+    // Get the current state of the player
     private void updateStartPosition() {
         if (mSimpleExoPlayer != null) {
             mShouldPlayWhenReady = mSimpleExoPlayer.getPlayWhenReady();
@@ -225,6 +229,7 @@ public class VideoPlayerFragment extends Fragment {
         }
     }
 
+    // Building the MediaSource
     private MediaSource buildMediaSource(Uri uri) {
         DataSource.Factory dataSourceFactory =
                 new DefaultDataSourceFactory(getActivity(), getString(R.string.app_name));

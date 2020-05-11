@@ -52,8 +52,8 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
     FragmentManager fragmentManager;
     Bundle stepsBundle;
     ArrayList<Step> stepList;
-    private boolean isTablet;
     Bundle saved;
+    private boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +74,9 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             closeOnError();
         }
 
-        if(!TextUtils.isEmpty(intent.getStringExtra(ConstantsUtil.WIDGET_KEY))){
+        if (!TextUtils.isEmpty(intent.getStringExtra(ConstantsUtil.WIDGET_KEY))) {
             SharedPreferences sharedpreferences =
-                    getSharedPreferences(ConstantsUtil.BAKINGAPP_SHARED_PREFERENCES,MODE_PRIVATE);
+                    getSharedPreferences(ConstantsUtil.BAKINGAPP_SHARED_PREFERENCES, MODE_PRIVATE);
             String jsonDish = sharedpreferences.getString(ConstantsUtil.CURRENT_DISH_JSON, "");
             try {
                 JSONObject dishObj = new JSONObject(jsonDish);
@@ -85,7 +85,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
                 e.printStackTrace();
             }
 
-        }else{
+        } else {
             dish = intent.getParcelableExtra(ConstantsUtil.SELECTED_DISH_KEY);
         }
 
@@ -133,6 +133,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         }
     }
 
+    // Initialize fragment first time
     private void playFirstVideo(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
@@ -140,7 +141,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         videoPlayerFragment.setArguments(stepsBundle);
 
         fragmentManager = getSupportFragmentManager();
-        if(saved == null) {
+        if (saved == null) {
             fragmentManager.beginTransaction()
                     .add(R.id.player_container, videoPlayerFragment)
                     .addToBackStack(null)
@@ -148,7 +149,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
         }
     }
 
-    // Initialize fragment
+    // Initialize fragment further
     public void playVideoReplace(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
@@ -163,6 +164,7 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
 
     }
 
+    // Implementing the interface method, different for tablet and phone
     @Override
     public void onStepClick(int position) {
         Step currentStep = stepList.get(position);
@@ -173,10 +175,9 @@ public class RecipeActivity extends AppCompatActivity implements StepsAdapter.On
             intent.putExtra(ConstantsUtil.COOKING_STEP_NUMBER_KEY, currentStep.getId());
             intent.putParcelableArrayListExtra(ConstantsUtil.ALL_STEP_KEY, stepList);
             this.startActivity(intent);
-//            Toast.makeText(this,
-//                    "This is the position - " + position, Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void closeOnError() {
         finish();

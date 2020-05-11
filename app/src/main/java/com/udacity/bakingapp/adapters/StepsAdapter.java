@@ -18,6 +18,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Steps Adapter implementation for the StepActivity RecyclerView
+ */
 public class StepsAdapter extends
         RecyclerView.Adapter<StepsAdapter.StepsListViewHolder> {
 
@@ -63,6 +66,7 @@ public class StepsAdapter extends
         void onStepClick(int position);
     }
 
+    // Defining the ViewHolder
     public class StepsListViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.step_name_tv)

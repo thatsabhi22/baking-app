@@ -3,6 +3,9 @@ package com.udacity.bakingapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Model Class {Ingredient} defined as Parcelable
+ */
 public class Ingredient implements Parcelable {
 
     public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {

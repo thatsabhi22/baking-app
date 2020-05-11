@@ -1,5 +1,6 @@
 package com.udacity.bakingapp.utils;
 
+// Constants
 public class ConstantsUtil {
 
     public static final String CURRENT_DISH_JSON = "current_dish_json";

@@ -31,6 +31,9 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * DishesAdapter implementation for the DishesActivity RecyclerView
+ */
 public class DishesAdapter extends
         RecyclerView.Adapter<DishesAdapter.DishListViewHolder> {
 
@@ -70,6 +73,8 @@ public class DishesAdapter extends
                         intent.putExtra(ConstantsUtil.SELECTED_DISH_KEY, current);
                         mContext.startActivity(intent);
 
+                        // Onclick of a dish, details stored to shared preferences
+                        // This data will be retrieved widget to be displayed
                         String currentJson = jsonToString(mJsonResult, holder.getAdapterPosition());
                         SharedPreferences.Editor editor = mContext
                                 .getSharedPreferences(ConstantsUtil.BAKINGAPP_SHARED_PREFERENCES, MODE_PRIVATE)
@@ -101,6 +106,7 @@ public class DishesAdapter extends
         return recipeElement.toString();
     }
 
+    // Defining the ViewHolder
     public class DishListViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.dish_image_view)

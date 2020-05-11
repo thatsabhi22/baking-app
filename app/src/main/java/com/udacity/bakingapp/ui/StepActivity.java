@@ -75,6 +75,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
         mVideoNumber = savedInstanceState.getInt(ConstantsUtil.COOKING_STEP_NUMBER_KEY_ONSAVEINSTANCE);
     }
 
+    // Initialize fragment first time
     private void playVideo(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
@@ -87,7 +88,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
                 .commit();
     }
 
-    // Initialize fragment
+    // Initialize fragment further
     public void playVideoReplace(Step step) {
         videoPlayerFragment = new VideoPlayerFragment();
         stepsBundle = new Bundle();
@@ -106,6 +107,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
                 ConstantsUtil.ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 
+    // Handling the navigation buttons moving next and previous cooking steps
     @Override
     public void onClick(View v) {
         if (mVideoNumber < 0) {
