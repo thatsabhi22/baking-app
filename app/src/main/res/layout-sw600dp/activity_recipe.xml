@@ -12,23 +12,23 @@
     <fragment
         android:id="@+id/recipe_fragment"
         android:name="com.udacity.bakingapp.fragments.RecipeFragment"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/fragment_width"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:layout_weight="1"
         tools:layout="@layout/fragment_recipe" />
 
     <FrameLayout
         android:id="@+id/player_container"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dim"
         android:layout_height="match_parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/zero_dim"
+        android:layout_marginTop="@dimen/short_margin"
+        android:layout_marginEnd="@dimen/short_margin"
+        android:layout_marginBottom="@dimen/short_margin"
         android:layout_weight="15" />
 
 </LinearLayout>

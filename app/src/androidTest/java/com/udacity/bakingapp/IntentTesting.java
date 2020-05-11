@@ -17,10 +17,12 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.Intents.intending;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.isInternal;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.not;
 
@@ -50,15 +52,21 @@ public class IntentTesting {
             e.printStackTrace();
         }
 
-        //Recyclerview scroll to position
+        //The following tests are intended for phone screen layout
+
+        // Recyclerview scroll to position
         onView(withId(R.id.dish_list_recycler_view))
                 .perform(RecyclerViewActions.scrollToPosition(2));
 
-        //Perform Recyclerview click on item at position
+        // Perform Recyclerview click on item at position
         onView(withId(R.id.dish_list_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        //Check if intent (RecipeActivity to RecipeDetailsActivity) has RECIPE_INTENT_EXTRA
+        // Check if intent (DishActivity to RecipeActivity) has SELECTED_DISH_KEY
         intended(hasExtraWithKey(ConstantsUtil.SELECTED_DISH_KEY));
+
+        // As the user navigates from DishActivity to RecipeActivity
+        onView(withId(R.id.recipe_fragment)).check(matches(isDisplayed()));
+
     }
 }

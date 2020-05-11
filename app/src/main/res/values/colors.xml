@@ -10,4 +10,6 @@
     <color name="icons">#212121</color>
     <color name="divider">#BDBDBD</color>
     <color name="colorWidgetBackground">#50cccccc</color>
+    <color name="colorPeach">#FDD0C2</color>
+    <color name="cardBackgroundColor">#F9C0AE</color>
 </resources>

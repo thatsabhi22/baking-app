@@ -14,10 +14,10 @@
             android:id="@+id/ingredient_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/standard_margin"
             android:text="@string/ingredients_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#FDD0C2"
+            android:textColor="@color/colorPeach"
             android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
@@ -25,16 +25,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ingredient_label"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="16dp">
+            android:layout_margin="@dimen/standard_margin"
+            app:cardCornerRadius="@dimen/standard_margin"
+            app:cardElevation="@dimen/standard_margin">
 
             <TextView
                 android:id="@+id/ingredient_list_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ingredient_label"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/standard_margin"
                 android:text="@string/ingredients_list_text"
                 android:textColor="@android:color/secondary_text_dark"
                 android:textSize="18sp" />
@@ -45,8 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ingredients_card_view"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin" />
 
     </RelativeLayout>
 </ScrollView>

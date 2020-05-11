@@ -4,7 +4,7 @@
     android:id="@+id/step_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="#f9c0ae"
+    android:backgroundTint="@color/cardBackgroundColor"
     card_view:cardCornerRadius="12dp"
     card_view:cardElevation="2dp"
     card_view:cardUseCompatPadding="true">
@@ -13,7 +13,7 @@
         android:id="@+id/step_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/standard_margin"
         android:ellipsize="end"
         android:maxLength="25"
         android:maxLines="1"

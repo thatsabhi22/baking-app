@@ -13,6 +13,7 @@ The fragments functionalities are being re-used in both screens.
 - Fragments
 - Exoplayer
 - Widgets
+- ButterKnife
 - Retrofit ( A type-safe HTTP client )
 - Scrolling Activity
 - Material Design

@@ -4,8 +4,8 @@
     android:id="@+id/dishes_phone_land"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="6dp"
-    android:paddingRight="6dp"
+    android:paddingLeft="@dimen/short_margin"
+    android:paddingRight="@dimen/short_margin"
     tools:context=".ui.DishesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
