@@ -5,8 +5,7 @@ import android.app.Instrumentation;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.runner.AndroidJUnit4;
-
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.udacity.bakingapp.ui.DishesActivity;
 import com.udacity.bakingapp.utils.ConstantsUtil;
 
