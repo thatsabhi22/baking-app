@@ -1,15 +1,14 @@
 # Baking App
 
-Android Developer Nanodegree Baking App
+Android Developer Nanodegree Baking App.
+
 A Video Recipe App as a part of Advanced Android App Development
 
-This app will allow a user to select a recipe and see video-guided steps for how to complete it.
-It requests the data from Internet in form of JSON. The JSON file contains the recipes' instructions, ingredients, videos and images you will need to complete this project. Don’t assume that all steps of the recipe have a video. Some may have a video, an image, or no visual media at all.
-This app makes use of fragments very efficiently on the tablet as well as phone screen.
+>This app will allow a user to select a recipe and see video-guided steps for how to complete it. It requests the data from Internet in form of JSON. The JSON file contains the recipes' instructions, ingredients, videos and images you will need to complete this project. Don’t assume that all steps of the recipe have a video. Some may have a video, an image, or no visual media at all. This app makes use of fragments very efficiently on the tablet as well as phone screen.
 The fragments functionalities are being re-used in both screens.
 
 
-## Used libraries and Concepts
+### Used libraries and Concepts
 
 - Fragments
 - Exoplayer
@@ -24,7 +23,8 @@ The fragments functionalities are being re-used in both screens.
 
 
 ## How it works
-  Phone
+
+#### Phone
 - As the app launches, Home screen with dishes arranged in a cards list appears to the user.
 - User taps a dish, the recipe screen opens with ingredients and the steps to cook the dish.
 - User clicks on any step in the step-list, gets redirected to the step details screen
@@ -33,7 +33,7 @@ The fragments functionalities are being re-used in both screens.
 - The user can also navigate between steps in the step details screen through next and previous buttons.
 - A homescreen widget is also available that displays ingredients of the last dished viewed on the app.
 
- Tablet
+#### Tablet
 - As the app launches, Home screen with dishes arranged in a cards list appears to the user.
 - User taps a dish, the recipe screen opens with ingredients and the steps to cook the dish.
 - As the tablet screen have much space, the Recipe screen and the step screen as in phone screen are clubbed together as master-list layout
